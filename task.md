@@ -404,7 +404,7 @@ DROP DATABASE test_playground;
 \l
 ```
 
-![Screenshot] (https://i.ibb.co/jPrk788c/Windows-Terminal-Qydqm-Hjfg9.png)
+![Screenshot](https://i.ibb.co/jPrk788c/Windows-Terminal-Qydqm-Hjfg9.png)
 
 
 **Warning:** `DROP DATABASE` permanently deletes a database and all its data. Always double-check the database name before running this command.
