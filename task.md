@@ -183,7 +183,6 @@ Take a screenshot showing:
 - `\dt` with an empty result / “Did not find any relations”
 ![Screenshot](https://i.ibb.co/93b8Rd12/Windows-Terminal-JVr-YWKMQTN.png)
 ![Screenshot](https://i.ibb.co/Y71c77F0/Windows-Terminal-OPSx-KE8-Xce.png)
-![Screenshot](https://i.ibb.co/Y7J9v1bv/Windows-Terminal-r-YQ5-Gni-Cr-X.png)
 ---
 
 ### Troubleshooting (Tasks 1–2)
@@ -205,24 +204,17 @@ Answer the following in your own words (write 2–3 sentences per point):
 1. List **3 specific problems** TrailShop would face if they kept using spreadsheets as their product catalog grows to 5,000+ items with 10 staff members.
 
 > [!NOTE]
-> ***Your Answer***
->
-> _(Write your answer here.)_
+> The first problem would definetly be managing a system that large with just 10 members, the scalability is trash on spreadsheets, because each cell record would have to be individually found and changed on seasonal, occasional sales and could accidentally be forgotten and overwritten by other members. Spreadsheets are notorious for problems relating to human error and have no concept of mandatory fields, a cell with slightly incorrect information ( such as an accidental empty space, negative symbol or a null value ) could lead to weird issues website, customer wise. Separate staff member departments ( procurement, warehouse, marketing, product managing, financial, etc.) would have unneccessary access to other confidential company information, due to the lack of security and role management in spreadsheets.
 
 2. List **3 benefits** of switching to a database system, explaining how each one solves a problem from your list above.
 
 > [!NOTE]
-> ***Your Answer***
->
-> _(Write your answer here.)_
+> Databases have MVCC, so the overwriting issues are fixed, several people can work on the system at once, its also much easier to control large amounts of information and change the values at once. Databases can have mandatory fields and rules, where null values or empty fields are instantly not accepted, its impossible to add records without satisfying the rules first. Security is far better, where certain user roles can only access certain information without having access to a different department's work.
 
 3. Explain the three-schema architecture in your own words. Why is the separation into three levels useful?
 
 > [!NOTE]
-> ***Your Answer***
->
-> _(Write your answer here.)_
-
+> The different layers are for different purposes, the external layer displays relevant information on the very surface, at the same time separating information based on roles. The conceptual level by my understanding is the level where most database developers work, create, modify, delete, etc. on the database information and inner structures. The internal level is basically where and how the information is stored, file formats, data compression etc., this is mainly used and edited by the DBMS. The separation is useful because it sections off areas depending on their purpose, its not one big melting pot. By my understanding it's separated to not have very large learning curves and be way more understandable, workable to the average person.
 ---
 
 ## Part 2: Theory Review Questions
@@ -235,65 +227,50 @@ Answer each question in 2–4 sentences. Reference the Theory material sections 
 _(See Section 1 of this week's Theory material.)_
 
 > [!NOTE]
-> ***Your Answer***
->
-> _(Write your answer here.)_
+> Data is raw facts, values, words, etc. information is like processed, organized and presentable data, it has a context and a concrete meaning, whereas data could just be several numbers in a line, where not having context could be of little value to someone, lets say, in a board meeting. Information is presented for example as: "Trailmaster X4 costs 149.99 euros and has 12 units in stock. Raw data for this exact same product would be : "Trailmaster X4, 149.99, 12".
 
 **Q2.** List and explain three disadvantages of file-based data management systems. For each, describe how it would affect TrailShop specifically.
 _(See Section 2 of this week's Theory material.)_
 
 > [!NOTE]
-> ***Your Answer***
->
-> _(Write your answer here.)_
+>Concurrency access issues would involve different versions of the same file being edited, and accidentally overwritten. It would affect trailshop by incorrectly changing the values of pricing, there could also be different meanings for the same product. Security issues could cause large company wide incidents, due to lack of access control, a random angry intern could delete the entire system out of spite or just access information that he should not be able to access in his line of work. Several files that share some of the same data could have different not updated meanings, this would be bad, because it would be a consistency issue, it would affect any company, including TrailShop.
 
 **Q3.** What is a DBMS? List four of its core functions.
 _(See Sections 3 and 4 of this week's Theory material.)_
 
 > [!NOTE]
-> ***Your Answer***
->
-> _(Write your answer here.)_
-
+>DBMS stands for database management system. 1. Data definition 2. Data manipulation 3. Data dictionary 4. Backup and recovery
 **Q4.** Explain program-data independence with a concrete example. Why is it important?
 _(See Section 5.2 of this week's Theory material.)_
 
 > [!NOTE]
-> ***Your Answer***
->
-> _(Write your answer here.)_
+> Program-data independence means that changes to the structure of data do not require changes to existing programs. If lets say products table contains only name and price, a website might use SELECT name, price FROM products; and it would still work perfectly even if for example a collumn weight_kg was added. It is important, because it reduces the need to modify and test applications after a database structure modification occurs. This also means that it would be easier to maintain and update the systems.
 
 **Q5.** What is metadata? Give two examples of metadata for a `products` table.
 _(See Section 8 of this week's Theory material.)_
 
 > [!NOTE]
-> ***Your Answer***
->
-> _(Write your answer here.)_
+>Metadata is "data about data", it explains the value of a collumn, for example a product_id is a numeric collumn, name is a text collumn.
 
 **Q6.** What is the three-schema architecture? Name and briefly describe each level.
 _(See Section 3.3 of this week's Theory material.)_
 
 > [!NOTE]
-> ***Your Answer***
->
-> _(Write your answer here.)_
+> 1. External level - what users/applications see.
+2. Conceptual level - The logical structure of the whole database.
+3. Internal level - how data is physically stored on disk.
 
 **Q7.** Explain the difference between logical data independence and physical data independence.
 _(See Section 3.4 of this week's Theory material.)_
 
 > [!NOTE]
-> ***Your Answer***
->
-> _(Write your answer here.)_
+> The main difference is what you change, logical data independence would be which and how data is organized in the database without breaking applications, for example, adding a new weight_kg collumn. Physical data independence would be changing how the data is stored on the computer/server without changing the dataabase structure, for example, adding an index to make searching faster.
 
 **Q8.** What is a transaction? Why is atomicity important? Give a TrailShop example.
 _(See Section 5.5 of this week's Theory material.)_
 
 > [!NOTE]
-> ***Your Answer***
->
-> _(Write your answer here.)_
+> Transaction is a logical unit of work, which either completes full or doesn't at all. It is important in cases where one of the steps for a purchase (on trailshop example) orders addition> order_items addition > stock_quantity in products decrease > charging the customer for the purchase does not go through due to one of the steps failing. If one of the steps fail, all of them do, to not cause data consistency issues. 
 
 ### True/False
 
@@ -306,10 +283,11 @@ For each statement, write **True** or **False** and correct any false statements
 5. The conceptual level of the three-schema architecture describes how data is physically stored on disk.
 
 > [!NOTE]
-> ***Your Answer***
->
-> _(Write True/False and corrections for all five statements above.)_
-
+>False (A DBMS stores data and information about the data's structure, such as tables, columns, relationships, and constraints).
+>True.
+>True.
+>False(PostgreSQL is a free and open-source database system).
+>False(The conceptual level describes the logical structure of the database. The internal level describes how data is physically stored on disk).
 ### Matching Exercise
 
 Match each term (1–10) with its definition (A–J).
@@ -345,16 +323,16 @@ Match each term (1–10) with its definition (A–J).
 >
 > | #   | Your Match |
 > | --- | ---------- |
-> | 1   |            |
-> | 2   |            |
-> | 3   |            |
-> | 4   |            |
-> | 5   |            |
-> | 6   |            |
-> | 7   |            |
-> | 8   |            |
-> | 9   |            |
-> | 10  |            |
+> | 1   |     F      |
+> | 2   |     H      |
+> | 3   |     B      |
+> | 4   |     A      |
+> | 5   |     C      |
+> | 6   |     G      |
+> | 7   |     D      |
+> | 8   |     E      |
+> | 9   |     I      |
+> | 10  |     J      |
 
 ---
 
@@ -378,10 +356,12 @@ Connect to PostgreSQL using psql and complete the following. Write down the comm
 5. Quit psql.
 
 > [!NOTE]
-> ***Your Answer***
->
-> _(Document the commands you used and summarize the output for each step.)_
-
+> 1,2,3.
+![Screenshot](https://i.ibb.co/yccCWYkw/Windows-Terminal-F8v7sp-Fek-D.png)
+> 4.1. \d **table_name**
+> 4.2. \du
+> 4.3. \h **command**
+> ctrl+c, Y
 ### Exercise 3.2: Explore the System Catalog
 
 While connected to `trailshop`, run the following queries and write down what they return:
@@ -402,10 +382,9 @@ WHERE table_schema = 'public';
 Why does the last query return no rows? What would you expect to see after creating tables in future weeks?
 
 > [!NOTE]
-> ***Your Answer***
->
-> _(Write your answer here.)_
-
+> There are no tables created.
+![Screenshot](https://i.ibb.co/CKbxynfm/Windows-Terminal-02-K2c8m-Kr6.png)
+> It would return publically available tables
 ### Exercise 3.3: Create and Drop a Test Database
 
 Practice database creation and deletion:
@@ -423,6 +402,9 @@ DROP DATABASE test_playground;
 -- List databases again to confirm it's gone
 \l
 ```
+
+![Screenshot] (https://i.ibb.co/jPrk788c/Windows-Terminal-Qydqm-Hjfg9.png)
+
 
 **Warning:** `DROP DATABASE` permanently deletes a database and all its data. Always double-check the database name before running this command.
 
