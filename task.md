@@ -240,6 +240,7 @@ _(See Sections 3 and 4 of this week's Theory material.)_
 
 > [!NOTE]
 >DBMS stands for database management system. 1. Data definition 2. Data manipulation 3. Data dictionary 4. Backup and recovery
+>
 **Q4.** Explain program-data independence with a concrete example. Why is it important?
 _(See Section 5.2 of this week's Theory material.)_
 
