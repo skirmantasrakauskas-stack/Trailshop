@@ -413,8 +413,8 @@ DROP DATABASE test_playground;
 
 ## Submission Checklist
 
-- [ ] PostgreSQL installed and working (screenshot of `psql --version` or equivalent)
-- [ ] `trailshop` database created (screenshot of `\c trailshop` showing successful connection)
-- [ ] Reflection Worksheet answers (Part 1, Task 3)
-- [ ] Theory Review Questions answered (Part 2)
-- [ ] Practical Exercise outputs documented (Part 3)
+- [x] PostgreSQL installed and working (screenshot of `psql --version` or equivalent)
+- [x] `trailshop` database created (screenshot of `\c trailshop` showing successful connection)
+- [x] Reflection Worksheet answers (Part 1, Task 3)
+- [x] Theory Review Questions answered (Part 2)
+- [x] Practical Exercise outputs documented (Part 3)
