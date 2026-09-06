@@ -107,7 +107,7 @@ That means you are connected to the default `postgres` maintenance database — 
 
 **Step 2 — List existing databases (optional but useful)**
 
-At the `postgres=#` prompt, run:yhyhyhyhyh
+At the `postgres=#` prompt, run:
 
 ```
 \l
@@ -181,7 +181,9 @@ Take a screenshot showing:
 
 - successful `\c trailshop` (or the `trailshop=#` prompt), **and**
 - `\dt` with an empty result / “Did not find any relations”
-
+![Screenshot](https://i.ibb.co/93b8Rd12/Windows-Terminal-JVr-YWKMQTN.png)
+![Screenshot](https://i.ibb.co/Y71c77F0/Windows-Terminal-OPSx-KE8-Xce.png)
+![Screenshot](https://i.ibb.co/Y7J9v1bv/Windows-Terminal-r-YQ5-Gni-Cr-X.png)
 ---
 
 ### Troubleshooting (Tasks 1–2)
