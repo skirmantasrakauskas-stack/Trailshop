@@ -78,12 +78,13 @@ Example:
 Think about rules for customers, orders, and categories — not just products.
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(List your 5 business rules with constraint types, table/column, and SQL syntax.)*
->
->
->
+| Business Rule | Constraint Type | Table.Column | SQL |
+|---|---|---|---|
+|First name and last name can't be null | NOT NULL | customers.first_name, customers.last_name | NOT NULL
+|The email address provided has to be unique and not null to prevent duplicate users | NOT NULL, UNIQUE | customers.email | NOT NULL, UNIQUE | 
+|Order quantity can not be negative or null | NOT NULL, CHECK | order_items.quantity | NOT NULL, CHECK (quantity > 0)
+|Product weight can not be negative| CHECK | products.weight_kg | CHECK (weight_kg > 0)
+|Order date must be displayed and cannot be null| NOT NULL, DEFAULT | orders.order_date | NOT NULL, DEFAULT CURRENT_DATE
 >
 
 ### Task 3: Integrity Violations
@@ -92,7 +93,7 @@ For each SQL statement below, predict whether it will **succeed** or **fail**. I
 
 ```sql
 -- Statement A
-INSERT INTO categories (category_id, category_name)
+INSERT INTO categories (category_id, category_name) 
 VALUES (NULL, 'Cycling');
 
 -- Statement B
@@ -125,12 +126,14 @@ VALUES (1001, 101, 0, 189.50);
 ```
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(For each statement A–H, write SUCCESS or FAIL and explain any violation.)*
->
->
->
+A - Fail, category_id is a PK, so it cannot be NULL
+B - Succeeds
+C - Fail, price = -5.00 violates CHECK (price> 0)
+D - Succeeds, if there is no duplicate 103 product_id
+E - Succeeds
+F - Fail, name = NULL violates NOT NULL
+G - Fail, stock_quantity = -3 violates CHECK (stock_quantity >= 0)
+H - Fails, quantity = 0 violates CHECK (quantity > 0)
 >
 
 ### Task 4: Foreign Key Actions
