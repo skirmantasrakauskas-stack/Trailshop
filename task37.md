@@ -77,7 +77,6 @@ Example:
 
 Think about rules for customers, orders, and categories — not just products.
 
-> [!NOTE]
 | Business Rule | Constraint Type | Table.Column | SQL |
 |---|---|---|---|
 |First name and last name can't be null | NOT NULL | customers.first_name, customers.last_name | NOT NULL
@@ -85,7 +84,7 @@ Think about rules for customers, orders, and categories — not just products.
 |Order quantity can not be negative or null | NOT NULL, CHECK | order_items.quantity | NOT NULL, CHECK (quantity > 0)
 |Product weight can not be negative| CHECK | products.weight_kg | CHECK (weight_kg > 0)
 |Order date must be displayed and cannot be null| NOT NULL, DEFAULT | orders.order_date | NOT NULL, DEFAULT CURRENT_DATE
->
+
 
 ### Task 3: Integrity Violations
 
@@ -126,14 +125,14 @@ VALUES (1001, 101, 0, 189.50);
 ```
 
 > [!NOTE]
-A - Fail, category_id is a PK, so it cannot be NULL
-B - Succeeds
-C - Fail, price = -5.00 violates CHECK (price> 0)
-D - Fail, duplicate 103 
-E - Succeeds
-F - Fail, name = NULL violates NOT NULL
-G - Fail, stock_quantity = -3 violates CHECK (stock_quantity >= 0)
-H - Fails, quantity = 0 violates CHECK (quantity > 0)
+1. A - Fail, category_id is a PK, so it cannot be NULL
+2. B - Succeeds
+3. C - Fail, price = -5.00 violates CHECK (price> 0)
+4. D - Fail, duplicate 103 
+5. E - Succeeds
+6. F - Fail, name = NULL violates NOT NULL
+7. G - Fail, stock_quantity = -3 violates CHECK (stock_quantity >= 0)
+8.  - Fails, quantity = 0 violates CHECK (quantity > 0)
 >
 
 ### Task 4: Foreign Key Actions
@@ -190,7 +189,7 @@ Answer each question in 2–4 sentences unless otherwise specified. Reference th
 > [!NOTE]
 > Entity integrity means every row must be uniquely identifiable using the primary key.
 >
-> You can't have NULL in a primary key because then you couldn't identify that row. If product_id was NULL, you couldn't find or reference it.
+> You can't have NULL in a primary key because then you couldn't identify that row. If product_id was NULL, you couldn't find or reference it.q
 >
 
 *(See Section 8.1 of this week's Theory material.)*
