@@ -41,7 +41,7 @@ Using the entity descriptions from Theory Section 12, create an ER diagram that 
 
 > [!NOTE]
 ![Screenshot](https://i.ibb.co/hx8VLs4g/chrome-4-Shc-Zfs-G6-H.png)
-
+The Week 37 design used a single products.category_id foreign key, which meant each product could belong to only one category. This is insufficient for TrailShop because a product may need to be assigned to multiple categories, so we replace the direct 1:N relationship with a junction entity called ProductCategory. ProductCategory links Product and Category together and resolves the many-to-many relationship in a normalized way.
 >
 
 ---
@@ -120,34 +120,19 @@ It means zero or many. Optional to participate and there can be many.
 11. Why can't a many-to-many (M:N) relationship be directly implemented in a relational database? What is the solution? *(Section 10)*
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+A many-to-many relationship cannot be directly implemented in a relational database because one row cannot hold multiple foreign keys in a single attribute. The solution is to create a junction table, such as ProductCategory, which stores the relationship and usually uses a composite primary key made from both foreign keys.
 >
 
 11b. Last week TrailShop used `products.category_id` so each product belonged to exactly one category. Why is that insufficient, and what ER construct replaces it? *(Section 1.4)*
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+This is insufficient because a product can belong to more than one category, but one foreign key can only store one category_id. The ER construct that replaces it is a junction/associative entity such as ProductCategory, which links Product and Category and represents the many-to-many relationship.
 >
 
 12. A business rule states: "Every employee must belong to exactly one department, and every department must have at least one employee." Express this using min-max notation for both sides. *(Section 8)*
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+Department (1, N) -- Employee (1;1)
 >
 
 ---
@@ -189,58 +174,39 @@ Relationships (in crow's foot):
 
 a) Can an author exist without having written any books? Explain using the notation.
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+Yes, an author can exist without having written any books, but a book must have an author. 0< means zero or many, -||- means exactly one.
 >
 
 b) Can a book exist without being loaned? Explain using the notation.
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+Yes a book can exist without being loaned, but a loan needs a book. 0< means zero or many, -||- means exactly one.
 >
 
 c) What type of entity is Loan in this diagram? Is it a junction/associative entity? Why?
 
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+Loan is a weak, identifying entity, its also a junction/associative entity, it depends on both book and member and stores their relationship details between them.
 >
 
 d) What is the cardinality of the Author-Book relationship? Is this realistic? What might be a more accurate model?
 
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+It is 1:N, one to many, no it's not realistic, because a book can be written by multiple authors and an author can wrie multiple books. A more accurate model would include AuthorBook, where it would work as a many to many relationship junction table.
 >
 
 e) What attributes would you add to the Loan entity?
 
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+I would add:
+loan_id(PK)
+member_id(FK)
+book_id(FK)
+loan_date
+due_date
+return_date
 >
 
 ### Diagram B: School System
@@ -266,60 +232,35 @@ a) Can a student exist without being enrolled in any course?
 
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+Yes, he/she can. You already explained the relations, so i won't explain it another time for redundancy reasons.
 >
 
 b) Can a course exist without having any enrolled students?
 
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+Yes, it can.
 >
 
 c) What is the cardinality between Student and Course (through Enrollment)?
 
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+It's many to many, a student can enroll in many courses, enrollment resolves this relationship.
 >
 
 d) Can a teacher exist without teaching any courses?
 
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+Yes, the teacher side allows zero courses, so it can exist without being assigned to a course.
 >
 
 e) Is the Teacher-Course relationship 1:1 or 1:N? What does this imply about team teaching?
 
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+It is 1:N, because a teacher can teach many courses, but each course is taught by EXACTLY ONE teacher.
 >
 
 ---
@@ -474,8 +415,8 @@ c) Describe how to fix it
 
 ## Submission Checklist
 
-- [ ] Exercise 1: ER diagram + design decision paragraph (including why Week 37's category FK is replaced)
-- [ ] Exercise 2: All 12 theory review answers, plus 11b
-- [ ] Exercise 3: All questions answered for both Diagram A and Diagram B
+- [x] Exercise 1: ER diagram + design decision paragraph (including why Week 37's category FK is replaced)
+- [x] Exercise 2: All 12 theory review answers, plus 11b
+- [x] Exercise 3: All questions answered for both Diagram A and Diagram B
 - [ ] Exercise 4: Entity list, relationship list, ER diagram, and justifications
 - [ ] Exercise 5: Four errors identified with explanations and corrections
