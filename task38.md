@@ -41,6 +41,7 @@ Using the entity descriptions from Theory Section 12, create an ER diagram that 
 
 > [!NOTE]
 ![Screenshot](https://i.ibb.co/hx8VLs4g/chrome-4-Shc-Zfs-G6-H.png)
+
 >
 
 ---
@@ -52,85 +53,48 @@ Answer each question in 2–4 sentences. Reference the relevant theory section. 
 1. Why should you create a conceptual data model before writing SQL? Give two specific reasons. *(Section 1)*
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
+Because it would prevent problems by making me think of data relationships, also of the rules that govern it. It would prevent duplicate data over several talbes, prevent unnecessary collumns when it could've been fixed by a junction table.
 >
 >
 
 2. What is the difference between the conceptual level and the logical level of a data model? *(Section 2)*
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
->
+The conceptual level is what the data and relationships are, the logical level is how that data is structured in the database.
 
 3. Explain logical data independence with an example. *(Section 3)*
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+Changing the conceptual schema doesn't change the user views with logical data independence. For example if we split item and item_description apart, the user view wouldn't change when using JOIN to combine their data.
 >
 
 4. Explain physical data independence with an example. *(Section 3)*
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+Achieving physical data independence means you can change the internal schema without changing the conceptual or external schemas. For example if we moved the database to a faster server, nothing would change or break.
 >
 
 5. What is the difference between a strong entity and a weak entity? Give one example of each (not from TrailShop). *(Section 5)*
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+A strong entity can be uniquely identified by its own attributes like a fish store has a table "Fish" and that table has fish_id, it would be uniquely identified because each type of fish is different. A weak entity couldn't be identified by its own attributes alone, such as Transaction, which would depend on BankAccount, because there could be transacion no.1 for every different BankAccount, therefore it's weak and depends on BankAccount
 >
 
 6. What is a composite attribute? How does it differ from a multivalued attribute? Give an example of each. *(Section 6)*
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+A composite attribute means being able to be split into several smaller attributes, such as address being street, house, apartment, door etc. A multivalued attribute can hold several values for a single entity, such as boots being both waterproof and also at the same time durable, black, etc.
 >
 
 7. What is a derived attribute? Why is it usually not stored in the database? *(Section 6)*
 
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
->
->
->
+Derived attributes aren't stored because they are computed when it is needed. For example someone's age calculation changes day by day, so to avoid inconsistency, you calculate it when it is needed, apart from some instances where its required to be stored for performance reasons.
 >
 
 8. Explain the difference between a binary relationship and a unary (recursive) relationship. Give an example of each. *(Section 7)*
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
+A binary relationship is a relationship between two entity types, for example it would be Customer and Order, where a customer placed an order (Only two). A Unary relationship is where a single entity is related to itself, such as a Phone is a product, and so is a Phone case, they are both Products, but are related to eachother. 
 >
 
 
@@ -138,15 +102,20 @@ Answer each question in 2–4 sentences. Reference the relevant theory section. 
 
 9. What is the difference between an identifying relationship and a non-identifying relationship? How does this affect the child table's primary key? *(Section 7)*
 > [!NOTE]
-> ***Your Answer***
->
-> *(Write your answer here.)*
+A strong (non identifying) relationship is where both entities can exist independently, neither needs the other for identification. A weak (identifying) relationship depends on eachother for its identification. The child's foreign key in a weak relationship is part of the primary key.
 >
 
 
 
 
 10. In crow's foot notation, what does the following endpoint mean: a circle followed by a crow's foot (fork)? *(Section 9)*
+
+> [!NOTE]
+It means zero or many. Optional to participate and there can be many. 
+>
+
+
+
 
 11. Why can't a many-to-many (M:N) relationship be directly implemented in a relational database? What is the solution? *(Section 10)*
 
