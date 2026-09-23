@@ -321,7 +321,7 @@ equipment -> maintenanceRequest: 1:N, one equipment item can have many maintenan
 4. Identify any entity that might be considered a weak entity or a junction/associative entity. Justify your answer.
 
 > [!NOTE]
-Registration is a junction/associative entiyt, because it resolves the M:N relationshop between members and classes, it is not a weak entity, as it has its own registration_id primary key. MaintenanceRequest is a strong entity, as it has its own request_id primary key, but it depeends on equipment for its relationship.
+Registration is a junction/associative entiyt, because it resolves the M:N relationshop between members and classes, it is not a weak entity, as it has its own registration_id primary key. maintenanceRequest is a strong entity, as it has its own request_id primary key, but it depends on equipment for its relationship.
 >
 
 5. Are there any M:N relationships? If so, what junction entity resolves them?
@@ -377,19 +377,19 @@ a) State what the error is
 b) Explain why it's a problem (reference the relevant theory section)
 
 > [!NOTE]
-1. This is a many-to-many relationship, and Chapter 10 explains that it cannot be directly implemented in a relational database without breaking the relational model.
-2. This is a multivalued attribute, and Chapter 6 explains that multiple values should not be stored in one field because it creates redundancy and makes the data harder to query.
-3. This is another M:N relationship, because a book can have many authors and an author can write many books. Chapter 7 and Chapter 10 explain that this should not be represented as a single attribute in one entity.
-4. There is no relationship between Books and Purchase, which is a missing relationship issue discussed in Chapter 7 and Chapter 8. Without it, the database cannot show which books are included in each purchase or store details like quantity and price.
+> 1. This is a many-to-many relationship, and Chapter 10 explains that it cannot be directly implemented in a relational database without breaking the relational model.
+> 2. This is a multivalued attribute, and Chapter 6 explains that multiple values should not be stored in one field because it creates redundancy and makes the data harder to query.
+> 3. This is another M:N relationship, because a book can have many authors and an author can write many books. Chapter 7 and Chapter 10 explain that this should not be represented as a single attribute in one entity.
+> 4. There is no relationship between Books and Purchase, which is a missing relationship issue discussed in Chapter 7 and Chapter 8. Without it, the database cannot show which books are included in each purchase or store details like quantity and price.
 >
 
 c) Describe how to fix it
 
 > [!NOTE]
-1. Create a junction/associative entity such as PurchaseItem or BookCustomer to resolve the M:N relationship properly.
-2. Replace the genres field with a separate Genre table or a BookGenre junction table so each genre is stored as its own value.
-3. Create an Author entity and a BookAuthor junction table so books and authors are linked correctly.
-4. Add a PurchaseItem entity that links Purchase to Book and stores details such as quantity and unit price.
+> 1. Create a junction/associative entity such as PurchaseItem to resolve the M:N relationship properly.
+> 2. Replace the genres field with a separate Genre table or a BookGenre junction table so each genre is stored as its own value.
+> 3. Create an Author entity and a BookAuthor junction table so books and authors are linked correctly.
+> 4. Add a PurchaseItem entity that links Purchase to Book and stores details such as quantity and unit price.
 >
 
 **Hints:** Think about multivalued attributes, M:N relationships, entity naming conventions, and missing relationships.
