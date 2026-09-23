@@ -366,7 +366,7 @@ The following ER diagram description contains **four errors**. Find each error, 
 Find the four errors in this design and for each one:
 
 a) State what the error is
-[!NOTE]
+> [!NOTE]
 1. Books to Customer is modeled as a direct M:N relationship.
 2. Genres is stored as a comma-separated string.
 3. Author name is stored directly in books.
@@ -375,7 +375,7 @@ a) State what the error is
 
 b) Explain why it's a problem (reference the relevant theory section)
 
-[!NOTE]
+> [!NOTE]
 1. This is a many-to-many relationship, and Chapter 10 explains that it cannot be directly implemented in a relational database without breaking the relational model.
 2. This is a multivalued attribute, and Chapter 6 explains that multiple values should not be stored in one field because it creates redundancy and makes the data harder to query.
 3. This is another M:N relationship, because a book can have many authors and an author can write many books. Chapter 7 and Chapter 10 explain that this should not be represented as a single attribute in one entity.
