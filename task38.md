@@ -366,11 +366,12 @@ The following ER diagram description contains **four errors**. Find each error, 
 Find the four errors in this design and for each one:
 
 a) State what the error is
+
 > [!NOTE]
-1. Books to Customer is modeled as a direct M:N relationship.
-2. Genres is stored as a comma-separated string.
-3. Author name is stored directly in books.
-4. Books to purchase has no relationship defined.
+> 1. Books to Customer is modeled as a direct M:N relationship.
+> 2. Genres is stored as a comma-separated string.
+> 3. Author name is stored directly in books.
+> 4. Books to purchase has no relationship defined.
 >
 
 b) Explain why it's a problem (reference the relevant theory section)
