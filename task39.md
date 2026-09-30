@@ -62,7 +62,6 @@ CREATE TABLE categories (
     description TEXT
 );
 
-
 CREATE TABLE customers (
     customer_id SERIAL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
@@ -159,6 +158,8 @@ CREATE TABLE order_items (
 
 
 --data inserts
+
+
 INSERT INTO categories (category_name, description) VALUES
     ('Trail Navigation', 'Maps and tools for finding the route.'),
     ('Camp Kitchen', 'Equipment for preparing food outdoors.'),
@@ -284,7 +285,7 @@ REAL and DOUBLE are floating-point types and aren't to be used for monetary valu
 
 7. What is the difference between `TIMESTAMP` and `TIMESTAMPTZ`? Which should you prefer and why? *(Section 4.3)*
 > [!NOTE]
-TIMESTAMP shows the date, TIMESTAMPZ shows date and timezone. I prefer TIMESTAMPZ, because its more widely known and also shows the exact timezone of the displayed date, allowing easier readability and clarity.
+TIMESTAMP stores a date and time without timezone information. TIMESTAMPTZ represents a specific moment in time and displays it using the session's timezone, so I would use it when users are in different time zones. PostgreSQL does not keep the original timezone name.
 >
 
 
@@ -317,7 +318,7 @@ A surrogate key is an artificial key, like a generated ID, while a natural key i
 11. Why does PostgreSQL fold unquoted identifiers to lowercase? How does `snake_case` naming help? *(Section 8)*
 
 > [!NOTE]
-Because that is how PostgresSQL stores that information. Mixed case words need to use quotation marks to preserve the mixed case, which is tedious and tiresome, thats why it's folded to the form it's saved as anyway.
+PostgreSQL folds unquoted identifiers to lowercase. snake_case keeps names readable while staying lowercase, so you do not need quotes around table and column names.
 >
 
 12. What does `SET NULL` do as a foreign key action? When would you use it instead of `CASCADE`? *(Section 6)*
@@ -474,17 +475,17 @@ For each column described below, choose the best PostgreSQL data type and write 
 | # | Column Description | Your Data Type | Justification |
 |---|---|---|---|
 | 1 | Employee salary (exact, up to €999,999.99) | NUMERIC | Monetary values require precision, thats where NUMERIC(10,2) comes in. |
-| 2 | Number of items in stock (never negative, max ~50,000) | SMALLINT | Its always non negative and maxes out around 50k, so it fits. |
+| 2 | Number of items in stock (never negative, max ~50,000) | INTEGER | INTEGER can hold values up to about 2 billion, while SMALLINT stops at 32,767. A CHECK constraint can make sure the value never goes below zero. |
 | 3 | Whether a user's email is verified | BOOLEAN | True/False for the verification status, true if verified, false if not. Should suffice.|
 | 4 | Customer's date of birth | DATE | I mean, a birthday is a date, so.. |
 | 5 | Product description (variable length, could be several paragraphs) | TEXT | Text data type can be long and vary in length. No real limit as far as i know. |
-| 6 | Country code (always exactly 2 letters, like "FI", "US") | CHAR | Country codes are exactly two letters, so CHAR(2) should enforce the fixed length. |
+| 6 | Country code (always exactly 2 letters, like "FI", "US") | CHAR(2) | Country codes are exactly two letters, so CHAR(2) stores the fixed-length code. |
 | 7 | IP address of a login attempt | INET | PostgresSQL apparently has a type specifically for IPV4/IPV6 addresses, so INET is the choice i'd take. |
 | 8 | Order total (exact, up to €9,999,999.99) | NUMERIC | Order deals need to be precise and exact, so NUMERIC(9,2) avoids rounding errors. |
 | 9 | GPS latitude of a store location | NUMERIC | Latitude needs to be exact aswell, but not have an unlimited range. NUMERIC(8,6) is the perfect fit. |
 | 10 | A unique identifier for API tokens that must be globally unique across distributed systems | UUID | A globally unique distributed identifier is best represented by UUID, which is designed for uniqueness across systems. |
 | 11 | Duration of a video in seconds (always a whole number) | INTEGER | Video duration in seconds is a whole number without decimals and it is small enough for INTEGER, which is simple. |
-| 12 | Timestamp of when a record was last modified (users in multiple time zones) | TIMESTAMPZ | Because the users are in different timezones, TIMESTAMPZ shows that instant in time aswell as the timezone ( thats why TIMESTAMPZ instead of TIMESTAMP ) |
+| 12 | Timestamp of when a record was last modified (users in multiple time zones) | TIMESTAMPTZ | It represents the same instant consistently and displays it using the session's timezone, which is useful for users in different time zones. |
 | 13 | A Finnish phone number like "+358 40 123 4567" | VARCHAR | Phone numbers have variable length and might include symbols such as + and spaces, so VARCHAR(20) is far more suitable than regular numeric types. |
 | 14 | A percentage discount (0.00% to 100.00%) | NUMERIC | Percentage discounts need exact decimal precision, so NUMERIC avoids floating point errors when calculating. |
 | 15 | A product's color options (e.g., a product comes in "red", "blue", "green") | TEXT[] | A product can have multiple color options, so an array type is a good fit for storing several values in one field.|
@@ -598,5 +599,5 @@ For each business rule below, write the appropriate PostgreSQL constraint. Provi
 - [x] Exercise 1: `.sql` file with all CREATE TABLE statements + written justifications
 - [x] Exercise 2: All 12 theory review answers
 - [x] Exercise 3: Hotel booking schema with all tables and explanations
-- [ ] Exercise 4: Data type selections with justifications for all 15 columns
-- [ ] Exercise 5: All 12 constraints written in valid PostgreSQL syntax
+- [x] Exercise 4: Data type selections with justifications for all 15 columns
+- [x] Exercise 5: All 12 constraints written in valid PostgreSQL syntax
