@@ -54,8 +54,6 @@ After creating the tables, insert sample data:
 
 > [!NOTE]
 > Verify that your constraints work by attempting at least 2 invalid inserts and showing the error messages.
-
-> [!NOTE]
 >
 ```sql
 CREATE TABLE categories (
