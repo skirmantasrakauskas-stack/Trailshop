@@ -52,10 +52,12 @@ After creating the tables, insert sample data:
 - At least 4 orders (across at least 2 customers)
 - At least 10 order items
 
-Verify that your constraints work by attempting at least 2 invalid inserts and showing the error messages.
+> [!NOTE]
+> Verify that your constraints work by attempting at least 2 invalid inserts and showing the error messages.
 
 > [!NOTE]
-> ```sql
+>
+```sql
 CREATE TABLE categories (
     category_id SERIAL PRIMARY KEY,
     category_name VARCHAR(50) NOT NULL UNIQUE,
@@ -151,12 +153,6 @@ CREATE TABLE order_items (
     PRIMARY KEY (order_id, product_id)
 );
 
-
-
-
-
-
-
 --data inserts
 
 
@@ -214,7 +210,7 @@ INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES
     (4, 4, 1, 189.00),
     (4, 1, 1, 34.90),
     (4, 7, 1, 21.00);
-> ```
+```
 
 > [!NOTE]
 > These two inserts should fail when run separately after the valid inserts:
@@ -231,8 +227,9 @@ INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES
 > ```
 > This should fail because the category name is already in use.
 
-> Both inserts failed ( With a bit of issues on my part :D, i got it fixed in the end though.)
-![Screenshot](https://i.ibb.co/cKgF694W/Windows-Terminal-v-TRC4fa-DAr.png)
+>
+> Both inserts failed (With a bit of issues on my part :D, i got it fixed in the end though.)
+> ![Screenshot](https://i.ibb.co/cKgF694W/Windows-Terminal-v-TRC4fa-DAr.png)
 
 
 > [!NOTE]
