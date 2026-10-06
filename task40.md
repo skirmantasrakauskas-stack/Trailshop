@@ -99,8 +99,7 @@ Insert the following data:
 - Footwear, Backpacks, Tents, Clothing, Accessories
 
 > [!NOTE]
-> **_Your SQL_**
->
+
 > ```sql
 INSERT INTO categories(name, description)
 VALUES
