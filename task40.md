@@ -38,56 +38,54 @@ Write and execute the CREATE TABLE statements for all six TrailShop tables in th
 > **_Your SQL_**
 >
 > ```sql
-CREATE TABLE categories (
-    category_id SERIAL PRIMARY KEY,
-    name        VARCHAR(255) NOT NULL UNIQUE,
-    description TEXT
-);
-
-CREATE TABLE customers (
-    customer_id SERIAL PRIMARY KEY,
-    first_name  VARCHAR(50) NOT NULL,
-    last_name   VARCHAR(50) NOT NULL,
-    email       VARCHAR(50) NOT NULL UNIQUE,
-    address     VARCHAR(50),
-    created_at  TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE products (
-    product_id  SERIAL PRIMARY KEY,
-    name        VARCHAR(50) NOT NULL,
-    description TEXT,
-    price       NUMERIC(10,2) NOT NULL CHECK(price > 0),
-    stock       INTEGER DEFAULT 0 CHECK(stock >= 0),
-    created_at  TIMESTAMPTZ
-);
-
-CREATE TABLE product_categories (
-    product_id  INTEGER NOT NULL 
-                REFERENCES products(product_id)
-                ON DELETE CASCADE,
-    category_id INTEGER NOT NULL
-                REFERENCES categories(category_id)
-                ON DELETE CASCADE,
-    PRIMARY KEY (product_id, category_id)
-);
-
-CREATE TABLE orders (
-    order_id    SERIAL PRIMARY KEY,
-    customer_id INTEGER NOT NULL REFERENCES customers(customer_id),
-    order_date  TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    status      VARCHAR(255) NOT NULL DEFAULT 'pending' CHECK(status IN ('pending', 'shipped','delivered','cancelled'))
-);
-
-CREATE TABLE order_items (
-    order_item_id   SERIAL PRIMARY KEY,
-    order_id    INTEGER NOT NULL REFERENCES orders(order_id) ON DELETE CASCADE,
-    product_id  INTEGER NOT NULL REFERENCES products(product_id),
-    quantity    INTEGER NOT NULL CHECK(quantity > 0),
-    unit_price  NUMERIC(10,2) NOT NULL CHECK(unit_price > 0)
-);
+> CREATE TABLE categories (
+>     category_id SERIAL PRIMARY KEY,
+>     name        VARCHAR(255) NOT NULL UNIQUE,
+>     description TEXT
+> );
 >
+> CREATE TABLE customers (
+>     customer_id SERIAL PRIMARY KEY,
+>     first_name  VARCHAR(50) NOT NULL,
+>     last_name   VARCHAR(50) NOT NULL,
+>     email       VARCHAR(50) NOT NULL UNIQUE,
+>     address     VARCHAR(50),
+>     created_at  TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+> );
 >
+> CREATE TABLE products (
+>     product_id  SERIAL PRIMARY KEY,
+>     name        VARCHAR(50) NOT NULL,
+>     description TEXT,
+>     price       NUMERIC(10,2) NOT NULL CHECK(price > 0),
+>     stock       INTEGER DEFAULT 0 CHECK(stock >= 0),
+>     created_at  TIMESTAMPTZ
+> );
+>
+> CREATE TABLE product_categories (
+>     product_id  INTEGER NOT NULL
+>                 REFERENCES products(product_id)
+>                 ON DELETE CASCADE,
+>     category_id INTEGER NOT NULL
+>                 REFERENCES categories(category_id)
+>                 ON DELETE CASCADE,
+>     PRIMARY KEY (product_id, category_id)
+> );
+>
+> CREATE TABLE orders (
+>     order_id    SERIAL PRIMARY KEY,
+>     customer_id INTEGER NOT NULL REFERENCES customers(customer_id),
+>     order_date  TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+>     status      VARCHAR(255) NOT NULL DEFAULT 'pending' CHECK(status IN ('pending', 'shipped','delivered','cancelled'))
+> );
+>
+> CREATE TABLE order_items (
+>     order_item_id   SERIAL PRIMARY KEY,
+>     order_id    INTEGER NOT NULL REFERENCES orders(order_id) ON DELETE CASCADE,
+>     product_id  INTEGER NOT NULL REFERENCES products(product_id),
+>     quantity    INTEGER NOT NULL CHECK(quantity > 0),
+>     unit_price  NUMERIC(10,2) NOT NULL CHECK(unit_price > 0)
+> );
 > ```
 
 ### Task 1.3: Insert Sample Data
@@ -99,16 +97,14 @@ Insert the following data:
 - Footwear, Backpacks, Tents, Clothing, Accessories
 
 > [!NOTE]
-
 > ```sql
-INSERT INTO categories(name, description)
-VALUES
-    ('Footwear', 'Different footwear for different occasions'),
-    ('Backpacks', 'Backpacks that come in different sizes'),    
-    ('Tents', 'Tents, small or large'),
-    ('Clothing', 'Stuff you wear'),
-    ('Accessories', 'For when you need something else');
->
+> INSERT INTO categories(name, description)
+> VALUES
+>     ('Footwear', 'Different footwear for different occasions'),
+>     ('Backpacks', 'Backpacks that come in different sizes'),
+>     ('Tents', 'Tents, small or large'),
+>     ('Clothing', 'Stuff you wear'),
+>     ('Accessories', 'For when you need something else');
 > ```
 
 **Customers** (at least 5):
@@ -117,13 +113,13 @@ VALUES
 
 > [!NOTE]
 > ```sql
-INSERT INTO customers(first_name,last_name,email)
-VALUES
-    ('Skirmantas','Rakauskas','skirmantas.rakauskas@gmail.com'),
-    ('Rokas','Burokas','pituhgaming3@gmail.com'),
-    ('Dalia','Kavaliauskiene','dalyte232@gmail.com'),
-    ('Pituhas','Pituhovicius','ne.rasykman@gmail.com'),
-    ('Viliovskaja', 'Malaciauskas','vilius.malaciauskas@gmail.com');
+> INSERT INTO customers(first_name,last_name,email)
+> VALUES
+>     ('Skirmantas','Rakauskas','skirmantas.rakauskas@gmail.com'),
+>     ('Rokas','Burokas','pituhgaming3@gmail.com'),
+>     ('Dalia','Kavaliauskiene','dalyte232@gmail.com'),
+>     ('Pituhas','Pituhovicius','ne.rasykman@gmail.com'),
+>     ('Viliovskaja', 'Malaciauskas','vilius.malaciauskas@gmail.com');
 > ```
 
 **Products** (at least 10):
@@ -134,20 +130,19 @@ VALUES
 - Various stock levels
 
 > [!NOTE]
-
 > ```sql
-INSERT INTO products(name, price, stock, description)
-VALUES
-    ('Hiking Boots', 120.00, 50, 'Durable boots for hiking'),
-    ('Running Shoes', 80.00, 100, 'Lightweight shoes for running'),
-    ('Travel Backpack', 150.00, 30, 'Spacious backpack for travel'),
-    ('Daypack', 60.00, 70, 'Compact backpack for daily use'),
-    ('Family Tent', 300.00, 20, 'Large tent suitable for families'),
-    ('Camping Tent', 200.00, 40, 'Tent for camping trips'),
-    ('Winter Jacket', 250.00, 25, 'Warm jacket for winter'),
-    ('T-Shirt', 25.00, 200, 'Casual t-shirt for everyday wear'),
-    ('Sunglasses', 50.00, 80, 'Stylish sunglasses for sunny days'),
-    ('Watch', 200.00, 15, 'Elegant watch for all occasions');
+> INSERT INTO products(name, price, stock, description)
+> VALUES
+>     ('Hiking Boots', 120.00, 50, 'Durable boots for hiking'),
+>     ('Running Shoes', 80.00, 100, 'Lightweight shoes for running'),
+>     ('Travel Backpack', 150.00, 30, 'Spacious backpack for travel'),
+>     ('Daypack', 60.00, 70, 'Compact backpack for daily use'),
+>     ('Family Tent', 300.00, 20, 'Large tent suitable for families'),
+>     ('Camping Tent', 200.00, 40, 'Tent for camping trips'),
+>     ('Winter Jacket', 250.00, 25, 'Warm jacket for winter'),
+>     ('T-Shirt', 25.00, 200, 'Casual t-shirt for everyday wear'),
+>     ('Sunglasses', 50.00, 80, 'Stylish sunglasses for sunny days'),
+>     ('Watch', 200.00, 15, 'Elegant watch for all occasions');
 > ```
 
 **Product categories:**
@@ -156,14 +151,13 @@ VALUES
 
 > [!NOTE]
 > ```sql
-INSERT INTO product_categories(product_id, category_id)
-VALUES
-    (1, 1), (2, 1), 
-    (3, 2), (4, 2), 
-    (5, 3), (6, 3), 
-    (7, 4), (8, 4),
-    (9, 5), (10, 5);
->
+> INSERT INTO product_categories(product_id, category_id)
+> VALUES
+>     (1, 1), (2, 1),
+>     (3, 2), (4, 2),
+>     (5, 3), (6, 3),
+>     (7, 4), (8, 4),
+>     (9, 5), (10, 5);
 > ```
 
 **Orders** (at least 5):
@@ -172,13 +166,13 @@ VALUES
 
 > [!NOTE]
 > ```sql
-INSERT INTO orders(customer_id, status)
-VALUES
-    (1, 'shipped'),
-    (2, 'delivered'),
-    (3, 'pending'),
-    (4, 'shipped'),
-    (5, 'cancelled');
+> INSERT INTO orders(customer_id, status)
+> VALUES
+>     (1, 'shipped'),
+>     (2, 'delivered'),
+>     (3, 'pending'),
+>     (4, 'shipped'),
+>     (5, 'cancelled');
 > ```
 
 **Order Items** (at least 10):
@@ -187,18 +181,18 @@ VALUES
 
 > [!NOTE]
 > ```sql
-INSERT INTO order_items(order_id, product_id, quantity, unit_price)
-VALUES
-    (1, 1, 2, 120.00),
-    (1, 3, 1, 150.00),
-    (2, 2, 1, 80.00),
-    (2, 4, 2, 60.00),
-    (3, 5, 1, 300.00),
-    (4, 6, 3, 200.00),
-    (4, 7, 1, 250.00),
-    (5, 8, 2, 25.00),
-    (5, 9, 1, 50.00),
-    (3, 10, 1, 200.00);
+> INSERT INTO order_items(order_id, product_id, quantity, unit_price)
+> VALUES
+>     (1, 1, 2, 120.00),
+>     (1, 3, 1, 150.00),
+>     (2, 2, 1, 80.00),
+>     (2, 4, 2, 60.00),
+>     (3, 5, 1, 300.00),
+>     (4, 6, 3, 200.00),
+>     (4, 7, 1, 250.00),
+>     (5, 8, 2, 25.00),
+>     (5, 9, 1, 50.00),
+>     (3, 10, 1, 200.00);
 > ```
 
 **Verify** each insert with `SELECT * FROM table_name;`
@@ -209,7 +203,7 @@ VALUES
 > **Recommended practice.** Do Tasks 1.4–1.6. They are not required to finish the TrailShop project. They prepare you for the exams. Task 1.6 renames `stock` to `quantity_in_stock`. Later weeks still use `stock`, so after you practice the rename, change the column name back.
 >
 >
->IM GOING TO IGNORE THIS BECAUSE OF TIME RESTRICTIONS, I WILL FINISH IT IN A FEW DAYS AFTER THE SUBMISSION TO PREPARE FOR THE EXAM.
+> **My note:** I'm going to ignore this because of time restrictions. I will finish it in a few days after the submission to prepare for the exam.
 >
 >
 Perform the following updates and verify each one:
