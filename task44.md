@@ -45,15 +45,15 @@ Write the following queries using subqueries:
    > **_Your SQL_**
    >
    > ```sql
-   SELECT p.name, p.price
-   FROM products p
-   WHERE p.price > (
-      SELECT AVG(p2.price)
-      FROM products p2
-      JOIN product_categories pc2 ON pc2.product_id = p2.product_id
-      JOIN product_categories pc1 ON pc1.product_id = p.product_id
-      AND pc1.category_id = pc2.category_id
-   );
+   >SELECT p.name, p.price
+   >FROM products p
+   >WHERE p.price > (
+   >  SELECT AVG(p2.price)
+   >  FROM products p2
+   >  JOIN product_categories pc2 ON pc2.product_id = p2.product_id
+   >  JOIN product_categories pc1 ON pc1.product_id = p.product_id
+   >  AND pc1.category_id = pc2.category_id
+   >);
    > ```
 
 ### Task 1.2: EXISTS
@@ -63,17 +63,17 @@ Write the following queries using subqueries:
    > **_Your SQL_**
    >
    > ```sql
-   SELECT c.first_name ||' '|| c.last_name AS full_name FROM customers c
-   WHERE EXISTS (
-      SELECT 1
-      FROM orders o
-      JOIN order_items oi ON oi.order_id = o.order_id
-      JOIN products p ON p.product_id = oi.product_id
-      JOIN product_categories pc ON pc.product_id = p.product_id
-      JOIN categories cat ON cat.category_id = pc.category_id
-      WHERE o.customer_id = c.customer_id
-      AND cat.name = 'Footwear'
-   );
+   >SELECT c.first_name ||' '|| c.last_name AS full_name FROM customers c
+   >WHERE EXISTS (
+   >  SELECT 1
+   >  FROM orders o
+   >  JOIN order_items oi ON oi.order_id = o.order_id
+   >  JOIN products p ON p.product_id = oi.product_id
+   >  JOIN product_categories pc ON pc.product_id = p.product_id
+   >  JOIN categories cat ON cat.category_id = pc.category_id
+   >  WHERE o.customer_id = c.customer_id
+   >  AND cat.name = 'Footwear'
+   >);
    >
    >
    > ```
@@ -82,12 +82,12 @@ Write the following queries using subqueries:
    > **_Your SQL_**
    >
    > ```sql
-   SELECT product_id, name FROM products p
-   WHERE NOT EXISTS (
-      SELECT 1
-      FROM order_items oi
-      WHERE oi.product_id = p.product_id
-   );
+   >SELECT product_id, name FROM products p
+   >WHERE NOT EXISTS (
+   >  SELECT 1
+   >  FROM order_items oi
+   >  WHERE oi.product_id = p.product_id
+   >);
    > ```
 
 ### Task 1.3: CASE Expressions
@@ -97,14 +97,14 @@ Write the following queries using subqueries:
    > **_Your SQL_**
    >
    > ```sql
-   SELECT price, name,
-      CASE
-         WHEN price < 25 THEN 'Budget'
-         WHEN price >= 25 AND price < 74.99 THEN 'Standard'
-         WHEN price >= 75 THEN 'Premium'
-         ELSE 'Unknown'
-      END AS price_tier
-   FROM products;
+   >SELECT price, name,
+   >  CASE
+   >     WHEN price < 25 THEN 'Budget'
+   >     WHEN price >= 25 AND price < 74.99 THEN 'Standard'
+   >     WHEN price >= 75 THEN 'Premium'
+   >     ELSE 'Unknown'
+   >  END AS price_tier
+   >FROM products;
    >
    > ```
 2. Write a query that counts orders by status using CASE inside COUNT.
