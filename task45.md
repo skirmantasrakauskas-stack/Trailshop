@@ -178,51 +178,38 @@ Answer in your own words (2–4 sentences each):
 1. What is normalization, and what problem does it solve?
 
 > [!NOTE]
-> **_Your Answer_**
->
-> _(Write your answer here.)_
+> Normalization is decomposition - splitting a poorly structured table into multiple well-structured tables. It solves several database issues, of which is eliminating redundancy, preventing anomalies, preserving data integrity, solving readability issues and granting a clear view of the database contents.
 
 2. Explain the difference between an insertion anomaly and a deletion anomaly, using an example.
 
 > [!NOTE]
-> **_Your Answer_**
->
-> _(Write your answer here.)_
+> An insertion anomaly basically means you can't create a record without creating another separate record, for example, you can't insert a customer without inserting an order, in this case it is a problem, because a customer can exist without placing orders. A deletion anomaly is a problem where deleting a record can delete an unrelated important attribute completely, such as deleting an order can accidentally remove for example a category or customer name if there is only one record of that category or customer name in the entire poorly structured table.
 
 3. What is the difference between a partial dependency and a transitive dependency?
 
 > [!NOTE]
-> **_Your Answer_**
->
-> _(Write your answer here.)_
+> A partial dependency is different from a transitive dependency because of the fact that partial dependencies only happen in tables where there is a composite key and the non key attribute depends on only part of the composite key. A transitive dependency is where a non key attribute depends on another non key attribute, such as products table containing category_name, which depends on category_id, which depends on product_id, its almost like a daisy-chain, its a problem because you have to update every single row with that information, otherwise there will be data inconsistency.
 
 4. State the "informal rule" for 3NF. Explain what each part means.
 
 > [!NOTE]
-> **_Your Answer_**
->
-> _(Write your answer here.)_
+> "Every non-key attribute must depend on the key, the whole key, and nothing but the key - so help me Codd". The table must have a primary key (1NF), every non key column depends on the entire key (2NF), there must be no transitive dependencies(3NF).
 
 5. Why can partial dependencies only occur in tables with composite primary keys?
 
 > [!NOTE]
-> **_Your Answer_**
->
-> _(Write your answer here.)_
+> Because the meaning in itself means partial of something, the only way it can be partial ( part of something that is more than one) is in a composite key, which can have two or more keys as the primary key. 
 
 6. What is BCNF, and how does it differ from 3NF? In what rare case can a table be in 3NF but not BCNF?
 
 > [!NOTE]
-> **_Your Answer_**
->
-> _(Write your answer here.)_
+> BCNF is a stricter version of 3NF, it is basically the same as 3NF but with a stricter rule, that every determinant must be a candidate key. A table can be in 3NF but not BCNF if there is a non key attribute that determines another non key attribute, which is a violation of BCNF.
 
 7. Give two legitimate reasons to denormalize a database.
 
 > [!NOTE]
-> **_Your Answer_**
->
-> _(Write your answer here.)_
+> 1. To improve query performance by reducing the number of joins required.
+> 2. To accommodate reporting and analysis needs that may not fit well with a fully normalized structure.
 
 ---
 
@@ -294,11 +281,28 @@ Normalize each table to 3NF. Show your work for each step.
 For each statement, write TRUE or FALSE and briefly explain why.
 
 1. A table with a single-column primary key can violate 2NF.
+   > FALSE
+   >A table with a single-column primary key cannot violate 2NF because there are no partial dependencies to consider.
+
 2. If a table is in 3NF, it is automatically in 2NF.
+   > TRUE
+   > 3NF is a stricter form of normalization than 2NF, so any table that is in 3NF must also be in 2NF.
+
 3. Normalization always improves query performance.
+   > FALSE
+   > While normalization can improve data integrity and reduce redundancy, it can sometimes lead to more complex queries with multiple joins, which might degrade performance.
+
 4. Storing a customer's current address in the orders table is always a normalization violation.
+   > TRUE
+   > This violates the principle of normalization by duplicating data that should be stored in a separate customer table.
+
 5. BCNF is stricter than 3NF — every table in BCNF is also in 3NF.
+   > TRUE
+   > BCNF (Boyce-Codd Normal Form) is indeed stricter than 3NF (Third Normal Form), and any table that satisfies BCNF will automatically satisfy 3NF.
+
 6. Denormalization should be done before normalization to save time.
+   > FALSE
+   > Denormalization is typically done after normalization when performance optimization is needed, not before it.
 
 ---
 
@@ -306,9 +310,9 @@ For each statement, write TRUE or FALSE and briefly explain why.
 
 **Required**
 
-- [ ] Existing TrailShop schema reviewed and confirmed in 3NF (Task 1.2)
-- [ ] Theory review questions answered
-- [ ] True/False questions answered with a short explanation
+- [x] Existing TrailShop schema reviewed and confirmed in 3NF (Task 1.2)
+- [x] Theory review questions answered
+- [x] True/False questions answered with a short explanation
 
 **Recommended practice**
 
